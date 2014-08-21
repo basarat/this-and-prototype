@@ -136,3 +136,26 @@ body {
  *********************************************/
 .reveal .slide-number {
   color: #51483d; }
+
+@font-face {
+  font-family: 'Cabin Sketch';
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/cabinsketch-regular.eot");
+  src: url("fonts/cabinsketch-regular.eot?#iefix") format("embedded-opentype"), url("fonts/cabinsketch-regular.woff") format("woff"), url("fonts/cabinsketch-regular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'Cabin Sketch';
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/cabinsketch-regular.eot");
+  src: url("fonts/cabinsketch-regular.eot?#iefix") format("embedded-opentype"), url("fonts/cabinsketch-regular.woff") format("woff"), url("fonts/cabinsketch-regular.ttf") format("truetype"); }
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: "Cabin Sketch"; }
+
+iframe {
+  width: 864px;
+  height: 320px; }
