@@ -877,8 +877,78 @@ bird.walk();
     </section>
 </section>
 
+<section>
+    <section id="reflection">
+        <h1>Reflection</h1>
+        <h2>Is or not?</h2>
+        <h2>Inherits or not?</h2>
+    </section>
 
-<!-- TODO: instance of  -->
+    <section>
+        <h2>Is or not?</h2>
+        <pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+Bird.prototype.__proto__ = Animal.prototype;
+
+var animal = new Animal();
+var bird = new Bird();
+
+print(animal.constructor == Animal);
+print(bird.constructor == Bird);
+        </code></pre>
+        <p><iframe src="http://jsfiddle.net/basarat/zbdcmjmg/embedded/result,js"></iframe></p>
+        <aside class="notes">Since proto points to prototype and prototype and member constructor</aside>
+    </section>
+
+    <section>
+        <h2>Inherits or not?</h2>
+        <h3>concept</h3>
+        <pre><code data-trim contenteditable>
+function Animal() {}
+
+function Bird() {}
+Bird.prototype.__proto__ = Animal.prototype;
+
+var animal = new Animal();
+
+// how deep
+print(animal.__proto__.__proto__.__proto__);
+
+// tests
+print(animal.__proto__ == Animal.prototype
+    || animal.__proto__.__proto__ == Animal);
+print(animal.__proto__ == Bird.prototype
+    || animal.__proto__.__proto__ == Bird);
+        </code></pre>
+        <p><iframe src="http://jsfiddle.net/basarat/0kzrtchd/embedded/result,js"></iframe></p>
+    </section>
+
+    <section>
+        <h2>Inherits or not?</h2>
+        <h3>instanceof</h3>
+        <pre><code data-trim contenteditable>
+function Animal() {}
+
+function Bird() {}
+Bird.prototype.__proto__ = Animal.prototype;
+
+var animal = new Animal();
+var bird = new Bird();
+
+print(animal instanceof Animal);
+print(animal instanceof Bird);
+
+print(bird instanceof Bird);
+print(bird instanceof Bird);
+        </code></pre>
+        <p><iframe src="http://jsfiddle.net/basarat/g1ve8ev6/embedded/result,js"></iframe></p>
+    </section>
+
+</section>
+
 <!-- TODO: Where to 'bind', 'call', 'apply' come from  -->
 <!-- TODO: native object chain e.g. array extends object, all string, all functions  -->
 
