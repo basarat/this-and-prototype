@@ -51,23 +51,279 @@
 					</p>
 				</section>
 
+				<!--
+
+
+				Basic calling context
+
+
+				-->
+				<section id="callingcontext">
+					<h2>this</h2>
+					<h3>
+						Calling context
+					</h3>
+
+					<aside class="notes">
+						Depends not upon the function, but upon how you call the function. Think of it as an arugment that is implicitly passed to the function by the runtime.
+					</aside>
+				</section>
+
 				<section>
-					<h2>Basic calling context example</h2>
+					<h2>Global calling context example</h2>
 					<pre><code data-trim contenteditable>
 function bar() {
-    console.log(this);
+  console.log(this);
 }
 
 bar();
 					</code></pre>
-					<p class="fragment"><iframe
-						src="http://codepen.io/basarat/embed/sftnm"
-						></iframe></p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
+					<p class="fragment"><iframe src="http://codepen.io/basarat/embed/sftnm"></iframe></p>
+					<aside class="notes"></aside>
 				</section>
+
+
+				<section>
+					<h2>Member calling context example</h2>
+					<pre><code data-trim contenteditable>
+var foo = {};
+
+function bar() {
+    console.log(this === foo);
+}
+
+foo.bar = bar;
+foo.bar();
+					</code></pre>
+					<p class="fragment"><iframe src="http://codepen.io/basarat/embed/rIbJn"></iframe></p>
+					<aside class="notes"></aside>
+				</section>
+
+
+				<section>
+					<h2>Why calling context? (1)</h2>
+					<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+    bas: function () {
+        console.log('inside this.bar is:', this.bar);
+    }
+}
+
+foo.bas();
+				</code></pre>
+				<p class="fragment"><iframe src="http://codepen.io/basarat/embed/bBAfm"></iframe></p>
+				<aside class="notes"></aside>
+			</section>
+
+			<section>
+				<h2>Why calling context? (2)</h2>
+				<pre><code data-trim contenteditable>
+function bar() {
+    console.log('inside this.foo is:', this.foo);
+}
+
+var a = { foo: 123, bar: bar };
+var b = { foo: 456, bar: bar };
+
+a.bar();
+b.bar();
+			</code></pre>
+			<p class="fragment"><iframe src="http://codepen.io/basarat/embed/AydLf"></iframe></p>
+			<aside class="notes"></aside>
+		</section>
+
+		<section>
+			<h2>Why calling context? (3)</h2>
+			<pre><code data-trim contenteditable>
+function bar() {
+    console.log('inside this.foo is:', this.foo);
+}
+
+var a = { foo: 123 };
+a.bar = bar;
+
+a.bar();
+		</code></pre>
+		<p class="fragment"><iframe src="http://codepen.io/basarat/embed/wpcEu"></iframe></p>
+		<aside class="notes"></aside>
+	</section>
+
+
+
+
+
+
+<!--
+
+
+Proto
+
+
+-->
+<section id="__proto__">
+	<h2>__proto__</h2>
+	<h3>
+		[[prototype]]
+	</h3>
+
+	<aside class="notes">
+	</aside>
+</section>
+
+<section>
+	<h2>Same functions?</h2>
+	<pre><code data-trim contenteditable>
+var foo = {};
+var bar = {};
+log(foo.toString == bar.toString);
+	</code></pre>
+<p class="fragment"><iframe src="http://codepen.io/basarat/embed/lInLw"></iframe></p>
+<aside class="notes">Are these the same functions? Where are they coming from? (Object.__proto__.toString)</aside>
+</section>
+
+
+<section>
+	<h2>Same proto</h2>
+	<pre><code data-trim contenteditable>
+var foo = {};
+var bar = {};
+log(foo.__proto__ == bar.__proto__);
+	</code></pre>
+<p class="fragment"><iframe src="http://codepen.io/basarat/embed/jlJGF"></iframe></p>
+<aside class="notes">Share the proto</aside>
+</section>
+
+<section>
+	<h2>Same toString</h2>
+	<pre><code data-trim contenteditable>
+var foo = {};
+var bar = {};
+log(foo.__proto__.toString == bar.__proto__.toString);
+	</code></pre>
+<p class="fragment"><iframe src="http://codepen.io/basarat/embed/Bqduh"></iframe></p>
+<aside class="notes"></aside>
+</section>
+
+<section>
+	<h2>__proto__ lookup</h2>
+	<pre><code data-trim contenteditable>
+var foo = {};
+print(foo.__proto__);
+print(foo.__proto__.__proto__);
+
+print('----');
+foo.__proto__.bar = 123;
+print(foo.bar);
+
+print('----');
+foo.bar = 456;
+print(foo.bar);
+
+print('----');
+delete foo.bar;
+print(foo.bar);
+	</code></pre>
+<p class="fragment"><iframe src="http://jsfiddle.net/basarat/codp15uf/5/embedded/result,js"></iframe></p>
+<aside class="notes">Since proto is shared don't do this!</aside>
+</section>
+
+<section>
+    <h2>__proto__ chain</h2>
+    <pre><code data-trim contenteditable>
+var foo = {
+    __proto__: {
+        __proto__: {
+            __proto__: {
+                bar: 123
+            }
+        }
+    }
+};
+
+print(foo.bar);
+    </code></pre>
+<p class="fragment"><iframe src="http://jsfiddle.net/basarat/f4gocr1t/embedded/result,js"></iframe></p>
+<aside class="notes"></aside>
+</section>
+
+<section>
+	<h2>Extend the language</h2>
+<pre><code data-trim contenteditable>
+var objectProto = ({}).__proto__;
+objectProto.log = function() {
+    print(this);
+};
+
+var foo = {
+    a: 123
+};
+var bar = {
+    b: 456
+};
+
+foo.log();
+bar.log();
+</code></pre>
+<p class="fragment"><iframe src="http://jsfiddle.net/basarat/Lat0w63k/embedded/result,js"></iframe></p>
+<aside class="notes">Now you shouldn't do this deep in your library or you are bound to break other libraries and possibly future JavaScript</aside>
+</section>
+
+<!-- TODO: proto is non standard  -->
+
+<!--
+
+
+Prototype
+
+
+-->
+
+<section id="__proto__">
+	<h2>__proto__</h2>
+	<h3>
+		[[prototype]]
+	</h3>
+
+	<aside class="notes">
+	</aside>
+</section>
+
+<section>
+	<h2>Extend the language</h2>
+<pre><code data-trim contenteditable>
+var objectProto = ({}).__proto__;
+objectProto.log = function() {
+		print(this);
+};
+
+var foo = {
+		a: 123
+};
+var bar = {
+		b: 456
+};
+
+foo.log();
+bar.log();
+</code></pre>
+<p class="fragment"><iframe src="http://jsfiddle.net/basarat/Lat0w63k/embedded/result,js"></iframe></p>
+<aside class="notes">Now you shouldn't do this deep in your library or you are bound to break other libraries and possibly future JavaScript</aside>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<!-- Example of nested vertical slides -->
 				<section>
