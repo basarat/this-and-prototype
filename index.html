@@ -949,10 +949,42 @@ print(bird instanceof Bird);
 
 </section>
 
-<!-- TODO: Where to 'bind', 'call', 'apply' come from  -->
-<!-- TODO: native object chain e.g. array extends object, all string, all functions  -->
+<section>
+    <section id="native">
+        <h1>Native Prototypes </h1><h2>and</h2><h1> Heirarchies</h1>
+    </section>
 
+    <section>
+        <h2>Function, Array, String, ...</h2>
+        <pre><code data-trim contenteditable>
+function func(){}
+var arr = [];
+var str = '';
+var bool = true;
+var num = 123;
 
+print(func.__proto__ == Function.prototype);
+print(arr.__proto__ == Array.prototype);
+print(str.__proto__ == String.prototype);
+print(bool.__proto__ == Boolean.prototype);
+print(num.__proto__ == Number.prototype);
+        </code></pre>
+        <p><iframe src="http://jsfiddle.net/basarat/su717mm1/embedded/result,js"></iframe></p>
+    </section>
+
+    <section>
+        <h2>Object.prototype</h2>
+        <pre><code data-trim contenteditable>
+var arr = [];
+
+print(arr.__proto__ == Array.prototype);
+print(arr.__proto__.__proto__ == Object.prototype);
+print(arr instanceof Array);
+print(arr instanceof Object);
+        </code></pre>
+        <p><iframe src="http://jsfiddle.net/basarat/4328e6x7/embedded/result,js"></iframe></p>
+    </section>
+</section>
 
 <section>
   <h1>THE END</h1>
