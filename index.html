@@ -388,11 +388,241 @@ b.log();
 <aside class="notes">Each gets its own `this` and proto (pointing to prototype) is shared we get an efficient class structure. The `this` inside the prototype members is depended upon the calling context</aside>
 </section>
 
+<!--
 
+Bind, call, apply
 
+-->
 
+<section>
+	<section id="bind">
+		<h2>Passing function references</h2>
+		<h3>bind</h3>
+	</section>
+
+	<section>
+		<h2>Bad calling context</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+    bas: function () {
+        print('inside this.bar is: ' + this.bar);
+    }
+}
+
+var bas = foo.bas;
+bas();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/1Lc71yd3/embedded/result,js"></iframe></p>
+	</section>
+
+	<section>
+		<h2>Verbose fix</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+    bas: function () {
+        print('inside this.bar is: ' + this.bar);
+    }
+}
+
+var bas = function () {
+    return foo.bas();
+};
+bas();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/moqp3yoa/embedded/result,js"></iframe></p>
+	</section>
+
+	<section>
+		<h2>bind</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+    bas: function () {
+        print('inside this.bar is: ' + this.bar);
+    }
+}
+
+var bas = foo.bas.bind(foo);
+bas();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/kkjj87cj/embedded/result,js"></iframe></p>
+	</section>
+
+</section>
+
+<section>
+	<section id="call">
+		<h2>call</h2>
+		<h3>When <em>you</em> want to call the function with some this</h3>
+	</section>
+
+	<section>
+		<h2>bind</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+};
+
+function bas() {
+    print('inside this.bar is: ' + this.bar);
+}
+
+bas.bind(foo)();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/293Ls5ga/embedded/result,js"></iframe></p>
+	<aside class="notes">We use bind because we don't want to mutate the object or the function</aside>
+	</section>
+
+	<section>
+		<h2>call</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+};
+
+function bas() {
+    print('inside this.bar is: ' + this.bar);
+}
+
+bas.call(foo);
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/6jd9recc/embedded/result,js"></iframe></p>
+	</section>
+
+	<section>
+		<h2>call with arguments</h2>
+	<pre><code data-trim contenteditable>
+var foo = {
+    bar: 123,
+};
+
+function bas(a, b) {
+    print({bar:this.bar, a:a, b:b});
+}
+
+bas.call(foo, 1, 2);
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/4xdwa2um/embedded/result,js"></iframe></p>
+	<aside class="notes">Call is needed to create a prototype chain and we will see it next</aside>
+	</section>
+
+</section>
+
+<section>
+	<section id="apply">
+		<h2>apply</h2>
+		<h3>Simple function interception</h3>
+	</section>
+</section>
+
+<section>
+	<section id="chain">
+		<h2>Chain</h2>
+		<h3>Creating a prototype heirarchy</h3>
+	</section>
+
+	<section>
+		<h2>Chain 101</h2>
+	<pre><code data-trim contenteditable>
+function Animal() { }
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() { }
+Bird.prototype.__proto__ = Animal.prototype;
+
+var animal = new Animal();
+animal.walk();
+
+var bird = new Bird();
+bird.walk();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/cxeb94s7/embedded/result,js"></iframe></p>
+	</section>
+
+	<section>
+		<h2>Add child functions</h2>
+	<pre><code data-trim contenteditable>
+function Animal() { }
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() { }
+Bird.prototype.__proto__ = Animal.prototype;
+Bird.prototype.fly = function () { print('fly') };
+
+var animal = new Animal();
+animal.walk();
+
+var bird = new Bird();
+bird.walk();
+bird.fly();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/xn1mv4ym/embedded/result,js"></iframe></p>
+	</section>
+
+	<section>
+		<h2>Member properties</h2>
+	<pre><code data-trim contenteditable>
+function Animal(name) {
+     this.name = name;
+}
+Animal.prototype.walk = function () { print(this.name + ' is walking') };
+
+function Bird(name) {
+}
+Bird.prototype.__proto__ = Animal.prototype;
+Bird.prototype.fly = function () { print(this.name + ' is flying') };
+
+var animal = new Animal('elephant');
+animal.walk();
+
+var bird = new Bird('crow');
+bird.walk();
+bird.fly();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/75eoyc3r/embedded/result,js"></iframe></p>
+	<aside class="notes">Does anybody see the error in this?</aside>
+	</section>
+
+	<section>
+		<h2>Member properties fixed</h2>
+	<pre><code data-trim contenteditable>
+function Animal(name) {
+    this.name = name;
+}
+Animal.prototype.walk = function () { print(this.name + ' is walking') };
+
+function Bird(name) {
+    Animal.call(this, name);
+}
+Bird.prototype.__proto__ = Animal.prototype;
+Bird.prototype.fly = function () { print(this.name + ' is flying') };
+
+var animal = new Animal('elephant');
+animal.walk();
+
+var bird = new Bird('crow');
+bird.walk();
+bird.fly();
+	</code></pre>
+	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
+	</section>
+
+	<section id="mainpattern">
+		<h2>Summary of pattern</h2>
+		<ul>
+			<li><h3 class="fragment">Members go on <pre>this</pre></h3></li>
+			<li><h3 class="fragment">Methods go on <pre>prototype</pre></h3></li>
+			<li><h3 class="fragment">From Child constructor do <pre>Base.call(this,...args)</pre></h3></li>
+			<li><h3 class="fragment">Child class chain via <pre>Child.prototype.__proto__ = Base.prototype</pre></h3></li>
+		</ul>
+	</section>
+</section>
 
 <!-- TODO: instance of  -->
+<!-- TODO: Where to 'bind', 'call', 'apply' come from  -->
+<!-- TODO: apply  -->
 
 
 
