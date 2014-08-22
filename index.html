@@ -289,7 +289,7 @@ Prototype
 </section>
 
 <section>
-	<h2>The prototype property</h2>
+  <h2>The prototype property</h2>
 <pre><code data-trim contenteditable>
 function Foo() { }
 print(Foo.prototype);
@@ -302,7 +302,7 @@ print(Foo.prototype.constructor === Foo);
 </section>
 
 <section>
-	<h2>Creates a new object</h2>
+  <h2>Creates a new object</h2>
 <pre><code data-trim contenteditable>
 function Foo() {
 }
@@ -338,7 +338,7 @@ print(newFoo.bar);
 </section>
 
 <section>
-	<h2>prototype and __proto__</h2>
+  <h2>prototype and __proto__</h2>
 <pre><code data-trim contenteditable>
 function Foo() { }
 
@@ -351,7 +351,7 @@ print(foo.__proto__ === Foo.prototype);
 </section>
 
 <section>
-	<h2>prototype advantage</h2>
+  <h2>prototype advantage</h2>
 <pre><code data-trim contenteditable>
 function Foo() {}
 Foo.prototype.log = function() {
@@ -369,7 +369,7 @@ b.log();
 </section>
 
 <section>
-	<h2>Basic Class Structure</h2>
+  <h2>Basic Class Structure</h2>
 <pre><code data-trim contenteditable>
 function Foo(val) {
     this.val = val;
@@ -395,14 +395,14 @@ Bind, call, apply
 -->
 
 <section>
-	<section id="bind">
-		<h2>Passing function references</h2>
-		<h3>bind</h3>
-	</section>
+  <section id="bind">
+    <h2>Passing function references</h2>
+    <h3>bind</h3>
+  </section>
 
-	<section>
-		<h2>Bad calling context</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Bad calling context</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
     bas: function () {
@@ -412,13 +412,13 @@ var foo = {
 
 var bas = foo.bas;
 bas();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/1Lc71yd3/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/1Lc71yd3/embedded/result,js"></iframe></p>
+  </section>
 
-	<section>
-		<h2>Verbose fix</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Verbose fix</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
     bas: function () {
@@ -430,13 +430,13 @@ var bas = function () {
     return foo.bas();
 };
 bas();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/moqp3yoa/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/moqp3yoa/embedded/result,js"></iframe></p>
+  </section>
 
-	<section>
-		<h2>bind</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>bind</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
     bas: function () {
@@ -446,21 +446,21 @@ var foo = {
 
 var bas = foo.bas.bind(foo);
 bas();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/kkjj87cj/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/kkjj87cj/embedded/result,js"></iframe></p>
+  </section>
 
 </section>
 
 <section>
-	<section id="call">
-		<h2>call</h2>
-		<h3>When <em>you</em> want to call the function with some this</h3>
-	</section>
+  <section id="call">
+    <h2>call</h2>
+    <h3>When <em>you</em> want to call the function with some this</h3>
+  </section>
 
-	<section>
-		<h2>bind</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>bind</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
 };
@@ -470,14 +470,14 @@ function bas() {
 }
 
 bas.bind(foo)();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/293Ls5ga/embedded/result,js"></iframe></p>
-	<aside class="notes">We use bind because we don't want to mutate the object or the function</aside>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/293Ls5ga/embedded/result,js"></iframe></p>
+  <aside class="notes">We use bind because we don't want to mutate the object or the function</aside>
+  </section>
 
-	<section>
-		<h2>call</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>call</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
 };
@@ -487,13 +487,13 @@ function bas() {
 }
 
 bas.call(foo);
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/6jd9recc/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/6jd9recc/embedded/result,js"></iframe></p>
+  </section>
 
-	<section>
-		<h2>call with arguments</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>call with arguments</h2>
+  <pre><code data-trim contenteditable>
 var foo = {
     bar: 123,
 };
@@ -503,29 +503,134 @@ function bas(a, b) {
 }
 
 bas.call(foo, 1, 2);
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/4xdwa2um/embedded/result,js"></iframe></p>
-	<aside class="notes">Call is needed to create a prototype chain and we will see it next</aside>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/4xdwa2um/embedded/result,js"></iframe></p>
+  <aside class="notes">Call is needed to create a prototype chain and we will see it next</aside>
+  </section>
 
 </section>
 
 <section>
-	<section id="apply">
-		<h2>apply</h2>
-		<h3>Simple function interception</h3>
-	</section>
+  <section id="apply">
+    <h2>apply</h2>
+    <h3>Simple function interception</h3>
+  </section>
+
+  <section>
+    <h2>How to intercept?</h2>
+  <pre><code data-trim contenteditable>
+var adder = {
+    increment: 1,
+    add: function (value) {
+        return this.increment + value;
+    }
+}
+
+// Want to intercept any call to add e.g.
+print(adder.add(3));
+</code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/wLnkzmxs/embedded/result,js"></iframe></p>
+  </section>
+
+  <section>
+    <h2>How to intercept?</h2>
+  <pre><code data-trim contenteditable>
+var adder = {
+    increment: 1,
+    add: function (value) {
+        return this.increment + value;
+    }
+}
+
+// Want to intercept any call to add e.g.
+print(adder.add(3));
+</code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/wLnkzmxs/embedded/result,js"></iframe></p>
+  </section>
+
+  <section>
+    <h2>Verbose</h2>
+  <pre><code data-trim contenteditable>
+var adder = {
+    increment: 1,
+    add: function (value) {
+        return this.increment + value;
+    }
+}
+
+var oldAdd = adder.add.bind(adder);
+adder.add = function(value){
+	print('someone is calling with value: ' + value);
+    return oldAdder(value);
+}
+
+// Intercepted!
+adder.add(3);
+</code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/1pve8ea8/embedded/result,js"></iframe></p>
+  </section>
+
+  <section>
+    <h2>arguments</h2>
+  <pre><code data-trim contenteditable>
+function foo(a,b,c){
+  print(arguments);
+}
+
+foo('say', 'something');
+foo('talk', 'to', 'me');
+</code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/rr4m2m6e/embedded/result,js"></iframe></p>
+  <aside class="notes">Array like object. Independent of any explicit arguments that you pass in.</aside>
+  </section>
+
+  <section>
+    <h2>apply</h2>
+  <pre><code data-trim contenteditable>
+function foo(a,b,c){
+    print(this);
+    print({a:a,b:b,c:c});
+}
+
+foo.apply({bar:'123'}, ['talk', 'to', 'me']);
+</code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/38nwz38s/embedded/result,js"></iframe></p>
+  <aside class="notes">Similar to call except second argument is an array that gets destructured into parameters. First argument is "this" same as call</aside>
+  </section>
+
+  <section>
+      <h2>intercept</h2>
+      <pre><code data-trim contenteditable>
+var adder = {
+    increment: 1,
+    add: function (value) {
+        return this.increment + value;
+    }
+}
+
+var oldAdd = adder.add;
+adder.add = function(value){
+    print('someone is calling with value: ' + value);
+    return oldAdd.apply(adder,arguments);
+}
+
+// Intercepted!
+adder.add(3);
+    </code></pre>
+    <p class="fragment"><iframe src="http://jsfiddle.net/basarat/on6tb3ez/embedded/result,js"></iframe></p>
+    <aside class="notes">Just apply the arguments on the old function, and guaranteed to not break any code</aside>
+  </section>
 </section>
 
 <section>
-	<section id="chain">
-		<h2>Chain</h2>
-		<h3>Creating a prototype heirarchy</h3>
-	</section>
+  <section id="chain">
+    <h2>Chain</h2>
+    <h3>Creating a prototype heirarchy</h3>
+  </section>
 
-	<section>
-		<h2>Chain 101</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Chain 101</h2>
+  <pre><code data-trim contenteditable>
 function Animal() { }
 Animal.prototype.walk = function () { print('walk') };
 
@@ -537,13 +642,13 @@ animal.walk();
 
 var bird = new Bird();
 bird.walk();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/cxeb94s7/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/cxeb94s7/embedded/result,js"></iframe></p>
+  </section>
 
-	<section>
-		<h2>Add child functions</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Add child functions</h2>
+  <pre><code data-trim contenteditable>
 function Animal() { }
 Animal.prototype.walk = function () { print('walk') };
 
@@ -557,13 +662,13 @@ animal.walk();
 var bird = new Bird();
 bird.walk();
 bird.fly();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/xn1mv4ym/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/xn1mv4ym/embedded/result,js"></iframe></p>
+  </section>
 
-	<section>
-		<h2>Member properties</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Member properties</h2>
+  <pre><code data-trim contenteditable>
 function Animal(name) {
      this.name = name;
 }
@@ -580,14 +685,14 @@ animal.walk();
 var bird = new Bird('crow');
 bird.walk();
 bird.fly();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/75eoyc3r/embedded/result,js"></iframe></p>
-	<aside class="notes">Does anybody see the error in this?</aside>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/75eoyc3r/embedded/result,js"></iframe></p>
+  <aside class="notes">Does anybody see the error in this?</aside>
+  </section>
 
-	<section>
-		<h2>Member properties fixed</h2>
-	<pre><code data-trim contenteditable>
+  <section>
+    <h2>Member properties fixed (1)</h2>
+  <pre><code data-trim contenteditable>
 function Animal(name) {
     this.name = name;
 }
@@ -605,24 +710,71 @@ animal.walk();
 var bird = new Bird('crow');
 bird.walk();
 bird.fly();
-	</code></pre>
-	<p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
-	</section>
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
+  </section>
 
-	<section id="mainpattern">
-		<h2>Summary of pattern</h2>
-		<ul>
-			<li><h3 class="fragment">Members go on <pre>this</pre></h3></li>
-			<li><h3 class="fragment">Methods go on <pre>prototype</pre></h3></li>
-			<li><h3 class="fragment">From Child constructor do <pre>Base.call(this,...args)</pre></h3></li>
-			<li><h3 class="fragment">Child class chain via <pre>Child.prototype.__proto__ = Base.prototype</pre></h3></li>
-		</ul>
-	</section>
+  <section>
+    <h2>Member properties fixed (2)</h2>
+  <pre><code data-trim contenteditable>
+function Animal(name) {
+    this.name = name;
+}
+Animal.prototype.walk = function () { print(this.name + ' is walking') };
+
+function Bird() {
+    Animal.apply(this, arguments);
+}
+Bird.prototype.__proto__ = Animal.prototype;
+Bird.prototype.fly = function () { print(this.name + ' is flying') };
+
+var animal = new Animal('elephant');
+animal.walk();
+
+var bird = new Bird('crow');
+bird.walk();
+bird.fly();
+  </code></pre>
+  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
+  <aside class="notes">When you do not care about the base class constructor arguments</aside>
+  </section>
+
+  <section id="mainpattern">
+    <h2>Summary of pattern</h2>
+    <ul>
+      <li><h3 class="fragment">Members go on <pre>this</pre></h3></li>
+      <li><h3 class="fragment">Methods go on <pre>prototype</pre></h3></li>
+      <li><h3 class="fragment">From Child constructor do <pre>Base.call(this,...args)</pre></h3></li>
+      <li><h3 class="fragment">Child class chain via <pre>Child.prototype.__proto__ = Base.prototype</pre></h3></li>
+    </ul>
+  </section>
 </section>
+
+<section>
+    <section>
+        <h1>this Summary</h1>
+        <h2>Calling Context</h2>
+        <h3>great for mixins</h3>
+        <h3>makes prototype work</h3>
+        <h2>Constructor</h2>
+        <h3>new</h3>
+    </section>
+    <section>
+        <h1>Function members</h1>
+        <h2>Function reference?</h2>
+        <h3 class="fragment">bind</h3>
+        <h2>Calling a parent?</h2>
+        <h3 class="fragment">call</h3>
+        <h2>Intercepting?</h2>
+        <h3 class="fragment">apply</h3>
+    </section>
+</section>
+
+
 
 <!-- TODO: instance of  -->
 <!-- TODO: Where to 'bind', 'call', 'apply' come from  -->
-<!-- TODO: apply  -->
+<!-- TODO: native object chain e.g. array extends object, all string, all functions  -->
 
 
 
