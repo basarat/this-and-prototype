@@ -574,8 +574,8 @@ var adder = {
 
 var oldAdd = adder.add.bind(adder);
 adder.add = function(value){
-	print('someone is calling with value: ' + value);
-    return oldAdder(value);
+    print('someone is calling with value: ' + value);
+    return oldAdd(value);
 }
 
 // Intercepted!
