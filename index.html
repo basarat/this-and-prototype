@@ -103,13 +103,13 @@ bar();
 var foo = {};
 
 function bar() {
-    console.log(this === foo);
+    print(this === foo);
 }
 
 foo.bar = bar;
 foo.bar();
           </code></pre>
-          <p class="fragment"><iframe src="http://codepen.io/basarat/embed/rIbJn"></iframe></p>
+          <p class="fragment"><iframe src="http://jsfiddle.net/tn1d70s9/embedded/result,js"></iframe></p>
           <aside class="notes"></aside>
         </section>
 
@@ -190,9 +190,9 @@ Proto
   <pre><code data-trim contenteditable>
 var foo = {};
 var bar = {};
-log(foo.toString == bar.toString);
+print(foo.toString == bar.toString);
   </code></pre>
-<p class="fragment"><iframe src="http://codepen.io/basarat/embed/lInLw"></iframe></p>
+<p class="fragment"><iframe src="http://jsfiddle.net/9nqm6c4v/embedded/result,js"></iframe></p>
 <aside class="notes">Are these the same functions? Where are they coming from? (Object.__proto__.toString)</aside>
 </section>
 
