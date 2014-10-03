@@ -120,13 +120,13 @@ foo.bar();
 var foo = {
     bar: 123,
     bas: function () {
-        console.log('inside this.bar is:', this.bar);
+        print('inside this.bar is: ' + this.bar);
     }
 }
 
 foo.bas();
         </code></pre>
-        <p class="fragment"><iframe src="http://codepen.io/basarat/embed/bBAfm"></iframe></p>
+        <p class="fragment"><iframe src="http://jsfiddle.net/basarat/x57vd2cu/embedded/result,js"></iframe></p>
         <aside class="notes"></aside>
       </section>
 
@@ -134,7 +134,7 @@ foo.bas();
         <h2>Why calling context? (2)</h2>
         <pre><code data-trim contenteditable>
 function bar() {
-    console.log('inside this.foo is:', this.foo);
+    print('inside this.foo is: ' + this.foo);
 }
 
 var a = { foo: 123, bar: bar };
@@ -143,7 +143,7 @@ var b = { foo: 456, bar: bar };
 a.bar();
 b.bar();
       </code></pre>
-      <p class="fragment"><iframe src="http://codepen.io/basarat/embed/AydLf"></iframe></p>
+      <p class="fragment"><iframe src="http://jsfiddle.net/basarat/rm28ugvr/embedded/result,js"></iframe></p>
       <aside class="notes"></aside>
     </section>
 
@@ -151,7 +151,7 @@ b.bar();
       <h2>Why calling context? (3)</h2>
       <pre><code data-trim contenteditable>
 function bar() {
-    console.log('inside this.foo is:', this.foo);
+    print('inside this.foo is: ' + this.foo);
 }
 
 var a = { foo: 123 };
@@ -159,7 +159,7 @@ a.bar = bar;
 
 a.bar();
     </code></pre>
-    <p class="fragment"><iframe src="http://codepen.io/basarat/embed/wpcEu"></iframe></p>
+    <p class="fragment"><iframe src="http://jsfiddle.net/basarat/13x7992z/embedded/result,js"></iframe></p>
     <aside class="notes"></aside>
   </section>
 
