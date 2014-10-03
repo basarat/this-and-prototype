@@ -785,114 +785,6 @@ bird.fly();
 </section>
 
 <section>
-    <section>
-        <h1>ES3,ES5,ES6</h1>
-        <h2>__proto__</h2>
-        <h2>new</h2>
-        <h2>Object.create</h2>
-        <h2>setPrototypeOf</h2>
-    </section>
-
-    <section>
-        <h2>Basic Example</h2>
-<pre><code data-trim contenteditable>
-function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
-
-function Bird() {}
-Bird.prototype.__proto__ = Animal.prototype;
-
-var bird = new Bird();
-bird.walk();
-</code></pre>
-<p><iframe src="http://jsfiddle.net/basarat/yfgqxkjt/embedded/result,js"></iframe></p>
-<aside class="notes">Anything you already know that can take a prototype and move it to __proto__?</aside>
-    </section>
-
-    <section>
-        <h2>new</h2>
-<pre><code data-trim contenteditable>
-function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
-
-function Bird() {}
-function tmp(){}; tmp.prototype = Animal.prototype;
-Bird.prototype = new tmp();
-
-var bird = new Bird();
-bird.walk();
-</code></pre>
-<p><iframe src="http://jsfiddle.net/basarat/rd58hkud/embedded/result,js"></iframe></p>
-<aside class="notes">Deletes our reference to constructor</aside>
-    </section>
-
-    <section>
-        <h2>new</h2>
-        <h3>constructor restored</h3>
-    <pre><code data-trim contenteditable>
-function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
-
-function Bird() {}
-function tmp(){}; tmp.prototype = Animal.prototype;
-Bird.prototype = new tmp();
-Bird.prototype.constructor = Bird;
-
-var bird = new Bird();
-bird.walk();
-    </code></pre>
-    </section>
-
-    <section>
-        <h2>Object.create</h2>
-    <pre><code data-trim contenteditable>
-function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
-
-function Bird() {}
-Bird.prototype = Object.create(Animal.prototype);
-
-var bird = new Bird();
-bird.walk();
-    </code></pre>
-    <p><iframe src="http://jsfiddle.net/basarat/3osb4vhk/embedded/result,js"></iframe></p>
-    </section>
-
-    <section>
-        <h2>Object.create</h2>
-        <h3>constructor restored</h3>
-    <pre><code data-trim contenteditable>
-function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
-
-function Bird() {}
-Bird.prototype = Object.create(Animal.prototype, {
-  constructor: {
-    value: Bird,
-    enumerable: false,
-    writable: true,
-    configurable: true
-  }
-});
-
-var bird = new Bird();
-bird.walk();
-    </code></pre>
-    <p><iframe src="http://jsfiddle.net/basarat/7s6pek3k/embedded/result,js"></iframe></p>
-    </section>
-
-    <section>
-        <h2>Guidance</h2>
-        <h3>Use JavaScript?</h3>
-        <a href="https://github.com/isaacs/inherits" target="_blank">inherits</a> / <a href="https://github.com/isaacs/inherits/blob/master/inherits_browser.js" target="_blank">src</a>
-        <h3>Use TypeScript or CoffeScript?</h3>
-        <a href="http://www.typescriptlang.org/Playground/#src=class%20Foo%7B%7D%0D%0Aclass%20Bar%20extends%20Foo%7B%7D" target="_blank">Built in</a>
-        <h3>ES6?</h3>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf" target="_blank">setPrototypeOf</a>
-    </section>
-</section>
-
-<section>
     <section id="reflection">
         <h1>Reflection</h1>
         <h2>Is or not?</h2>
@@ -998,6 +890,114 @@ print(arr instanceof Array);
 print(arr instanceof Object);
         </code></pre>
         <p><iframe src="http://jsfiddle.net/basarat/4328e6x7/embedded/result,js"></iframe></p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h1>ES3,ES5,ES6</h1>
+        <h2>__proto__</h2>
+        <h2>new</h2>
+        <h2>Object.create</h2>
+        <h2>setPrototypeOf</h2>
+    </section>
+
+    <section>
+        <h2>Basic Example</h2>
+<pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+Bird.prototype.__proto__ = Animal.prototype;
+
+var bird = new Bird();
+bird.walk();
+</code></pre>
+<p><iframe src="http://jsfiddle.net/basarat/yfgqxkjt/embedded/result,js"></iframe></p>
+<aside class="notes">Anything you already know that can take a prototype and move it to __proto__?</aside>
+    </section>
+
+    <section>
+        <h2>new</h2>
+<pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+function tmp(){}; tmp.prototype = Animal.prototype;
+Bird.prototype = new tmp();
+
+var bird = new Bird();
+bird.walk();
+</code></pre>
+<p><iframe src="http://jsfiddle.net/basarat/rd58hkud/embedded/result,js"></iframe></p>
+<aside class="notes">Deletes our reference to constructor</aside>
+    </section>
+
+    <section>
+        <h2>new</h2>
+        <h3>constructor restored</h3>
+    <pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+function tmp(){}; tmp.prototype = Animal.prototype;
+Bird.prototype = new tmp();
+Bird.prototype.constructor = Bird;
+
+var bird = new Bird();
+bird.walk();
+    </code></pre>
+    </section>
+
+    <section>
+        <h2>Object.create</h2>
+    <pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+Bird.prototype = Object.create(Animal.prototype);
+
+var bird = new Bird();
+bird.walk();
+    </code></pre>
+    <p><iframe src="http://jsfiddle.net/basarat/3osb4vhk/embedded/result,js"></iframe></p>
+    </section>
+
+    <section>
+        <h2>Object.create</h2>
+        <h3>constructor restored</h3>
+    <pre><code data-trim contenteditable>
+function Animal() {}
+Animal.prototype.walk = function () { print('walk') };
+
+function Bird() {}
+Bird.prototype = Object.create(Animal.prototype, {
+  constructor: {
+    value: Bird,
+    enumerable: false,
+    writable: true,
+    configurable: true
+  }
+});
+
+var bird = new Bird();
+bird.walk();
+    </code></pre>
+    <p><iframe src="http://jsfiddle.net/basarat/7s6pek3k/embedded/result,js"></iframe></p>
+    </section>
+
+    <section>
+        <h2>Guidance</h2>
+        <h3>Use JavaScript?</h3>
+        <a href="https://github.com/isaacs/inherits" target="_blank">inherits</a> / <a href="https://github.com/isaacs/inherits/blob/master/inherits_browser.js" target="_blank">src</a>
+        <h3>Use TypeScript or CoffeScript?</h3>
+        <a href="http://www.typescriptlang.org/Playground/#src=class%20Foo%7B%7D%0D%0Aclass%20Bar%20extends%20Foo%7B%7D" target="_blank">Built in</a>
+        <h3>ES6?</h3>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf" target="_blank">setPrototypeOf</a>
     </section>
 </section>
 

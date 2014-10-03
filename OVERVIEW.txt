@@ -1,0 +1,10 @@
+calling context 
+__ proto __ 
+new (prototype)  + basic class structure 
+bind, call, apply
+inheritance 
+REVIEW
+
+REFLECTION
+Native Prototypes
+new, obj.create, es6 
