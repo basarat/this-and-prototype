@@ -159,3 +159,12 @@ body {
 iframe {
   width: 864px;
   height: 320px !important; }
+
+.bas-code {
+  font-family: "Lucida Console", Monaco, monospace !important;
+  white-space: pre !important;
+  background: #3F3F3F !important;
+  color: white !important;
+  text-align: left !important;
+  padding: 5px !important;
+  font-size: 20px !important; }

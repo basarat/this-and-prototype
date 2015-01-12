@@ -38,6 +38,8 @@
 
   <body>
 
+    <a href="https://github.com/basarat/this-and-prototype"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
     <div class="reveal">
 
       <!-- Any section element inside of this container is displayed as a slide -->
@@ -92,7 +94,9 @@ function bar() {
 
 bar();
           </code></pre>
-          <p class="fragment"><iframe src="http://codepen.io/basarat/embed/sftnm"></iframe></p>
+          <p class="fragment bas-code" data-trim contenteditable>
+> window
+          </p>
           <aside class="notes"></aside>
         </section>
 
@@ -103,13 +107,15 @@ bar();
 var foo = {};
 
 function bar() {
-    print(this === foo);
+    console.log(this === foo);
 }
 
 foo.bar = bar;
 foo.bar();
           </code></pre>
-          <p class="fragment"><iframe src="http://jsfiddle.net/tn1d70s9/embedded/result,js"></iframe></p>
+          <p class="fragment bas-code" data-trim contenteditable>
+> true
+          </p>
           <aside class="notes"></aside>
         </section>
 
@@ -120,13 +126,15 @@ foo.bar();
 var foo = {
     bar: 123,
     bas: function () {
-        print('inside this.bar is: ' + this.bar);
+        console.log('inside this.bar is: ' + this.bar);
     }
 }
 
 foo.bas();
         </code></pre>
-        <p class="fragment"><iframe src="http://jsfiddle.net/basarat/x57vd2cu/embedded/result,js"></iframe></p>
+        <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: 123"
+        </p>
         <aside class="notes"></aside>
       </section>
 
@@ -134,7 +142,7 @@ foo.bas();
         <h2>Why calling context? (2)</h2>
         <pre><code data-trim contenteditable>
 function bar() {
-    print('inside this.foo is: ' + this.foo);
+    console.log('inside this.foo is: ' + this.foo);
 }
 
 var a = { foo: 123, bar: bar };
@@ -143,7 +151,10 @@ var b = { foo: 456, bar: bar };
 a.bar();
 b.bar();
       </code></pre>
-      <p class="fragment"><iframe src="http://jsfiddle.net/basarat/rm28ugvr/embedded/result,js"></iframe></p>
+      <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.foo is: 123"
+> "inside this.foo is: 456"
+      </p>
       <aside class="notes"></aside>
     </section>
 
@@ -151,7 +162,7 @@ b.bar();
       <h2>Why calling context? (3)</h2>
       <pre><code data-trim contenteditable>
 function bar() {
-    print('inside this.foo is: ' + this.foo);
+    console.log('inside this.foo is: ' + this.foo);
 }
 
 var a = { foo: 123 };
@@ -159,7 +170,9 @@ a.bar = bar;
 
 a.bar();
     </code></pre>
-    <p class="fragment"><iframe src="http://jsfiddle.net/basarat/13x7992z/embedded/result,js"></iframe></p>
+    <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.foo is: 123"
+    </p>
     <aside class="notes"></aside>
   </section>
 
@@ -190,9 +203,11 @@ Proto
   <pre><code data-trim contenteditable>
 var foo = {};
 var bar = {};
-print(foo.toString == bar.toString);
+console.log(foo.toString == bar.toString);
   </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/9nqm6c4v/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> true
+  </p>
 <aside class="notes">Are these the same functions? Where are they coming from? (Object.__proto__.toString)</aside>
 </section>
 
@@ -204,7 +219,9 @@ var foo = {};
 var bar = {};
 log(foo.__proto__ == bar.__proto__);
   </code></pre>
-<p class="fragment"><iframe src="http://codepen.io/basarat/embed/jlJGF"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> true
+  </p>
 <aside class="notes">Share the proto</aside>
 </section>
 
@@ -215,7 +232,9 @@ var foo = {};
 var bar = {};
 log(foo.__proto__.toString == bar.__proto__.toString);
   </code></pre>
-<p class="fragment"><iframe src="http://codepen.io/basarat/embed/Bqduh"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> true
+  </p>
 <aside class="notes"></aside>
 </section>
 
@@ -223,22 +242,31 @@ log(foo.__proto__.toString == bar.__proto__.toString);
   <h2>__proto__ lookup</h2>
   <pre><code data-trim contenteditable>
 var foo = {};
-print(foo.__proto__);
-print(foo.__proto__.__proto__);
+console.log(foo.__proto__);
+console.log(foo.__proto__.__proto__);
 
-print('----');
+console.log('----');
 foo.__proto__.bar = 123;
-print(foo.bar);
+console.log(foo.bar);
 
-print('----');
+console.log('----');
 foo.bar = 456;
-print(foo.bar);
+console.log(foo.bar);
 
-print('----');
+console.log('----');
 delete foo.bar;
-print(foo.bar);
+console.log(foo.bar);
   </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/codp15uf/5/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> {}
+> null
+> "----"
+> 123
+> "----"
+> 456
+> "----"
+> 123
+  </p>
 <aside class="notes">Since proto is shared don't do this!</aside>
 </section>
 
@@ -255,9 +283,11 @@ var foo = {
     }
 };
 
-print(foo.bar);
+console.log(foo.bar);
     </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/f4gocr1t/embedded/result,js"></iframe></p>
+    <p class="fragment bas-code" data-trim contenteditable>
+> 123
+    </p>
 <aside class="notes"></aside>
 </section>
 
@@ -266,7 +296,7 @@ print(foo.bar);
 <pre><code data-trim contenteditable>
 var objectProto = ({}).__proto__;
 objectProto.log = function() {
-    print(this);
+    console.log(this);
 };
 
 var foo = {
@@ -279,7 +309,10 @@ var bar = {
 foo.log();
 bar.log();
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/Lat0w63k/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> {"a":123}
+> {"b":456}
+</p>
 <aside class="notes">Now you shouldn't do this deep in your library or you are bound to break other libraries and possibly future JavaScript</aside>
 </section>
 
@@ -306,12 +339,15 @@ Prototype
   <h2>The prototype property</h2>
 <pre><code data-trim contenteditable>
 function Foo() { }
-print(Foo.prototype);
+console.log(Foo.prototype);
 
 // Has a default member
-print(Foo.prototype.constructor === Foo);
+console.log(Foo.prototype.constructor === Foo);
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/kLz3afms/1/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> {}
+> true
+</p>
 <aside class="notes">Non enumerated constructor property</aside>
 </section>
 
@@ -322,12 +358,15 @@ function Foo() {
 }
 
 // without the new operator
-print(Foo());
+console.log(Foo());
 
 // with the new operator
-print(new Foo());
+console.log(new Foo());
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/tgp1sfpn/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> undefined
+> {}
+</p>
 <aside class="notes"></aside>
 </section>
 
@@ -336,18 +375,23 @@ print(new Foo());
 <pre><code data-trim contenteditable>
 function Foo() {
     this.bar = 123;
-    print('Is this global?: '+ (this == window));
+    console.log('Is this global?: '+ (this == window));
 }
 
 // without the new operator
 Foo();
-print(window.bar);
+console.log(window.bar);
 
 // with the new operator
 var newFoo = new Foo();
-print(newFoo.bar);
+console.log(newFoo.bar);
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/29j3pjn8/3/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "Is this global?: true"
+> 123
+> "Is this global?: false"
+> 123
+</p>
 <aside class="notes"></aside>
 </section>
 
@@ -358,9 +402,11 @@ function Foo() { }
 
 var foo = new Foo();
 
-print(foo.__proto__ === Foo.prototype);
+console.log(foo.__proto__ === Foo.prototype);
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/sdwh4n5q/1/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> true
+</p>
 <aside class="notes"></aside>
 </section>
 
@@ -369,7 +415,7 @@ print(foo.__proto__ === Foo.prototype);
 <pre><code data-trim contenteditable>
 function Foo() {}
 Foo.prototype.log = function() {
-    print('log');
+    console.log('log');
 }
 
 var a = new Foo();
@@ -378,7 +424,10 @@ var b = new Foo();
 a.log();
 b.log();
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/9nnmw2Ly/1/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "log"
+> "log"
+</p>
 <aside class="notes">Provides a standard way of creating shared functions</aside>
 </section>
 
@@ -389,7 +438,7 @@ function Foo(val) {
     this.val = val;
 }
 Foo.prototype.log = function () {
-    print(this.val);
+    console.log(this.val);
 }
 
 var a = new Foo(1);
@@ -398,7 +447,10 @@ var b = new Foo(2);
 a.log();
 b.log();
 </code></pre>
-<p class="fragment"><iframe src="http://jsfiddle.net/basarat/yrp88Le5/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> 1
+> 2
+</p>
 <aside class="notes">Each gets its own `this` and proto (pointing to prototype) is shared we get an efficient class structure. The `this` inside the prototype members is depended upon the calling context</aside>
 </section>
 
@@ -420,14 +472,16 @@ Bind, call, apply
 var foo = {
     bar: 123,
     bas: function () {
-        print('inside this.bar is: ' + this.bar);
+        console.log('inside this.bar is: ' + this.bar);
     }
 }
 
 var bas = foo.bas;
 bas();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/1Lc71yd3/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: undefined"
+  </p>
   </section>
 
   <section>
@@ -436,7 +490,7 @@ bas();
 var foo = {
     bar: 123,
     bas: function () {
-        print('inside this.bar is: ' + this.bar);
+        console.log('inside this.bar is: ' + this.bar);
     }
 }
 
@@ -445,7 +499,9 @@ var bas = function () {
 };
 bas();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/moqp3yoa/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: 123"
+  </p>
   </section>
 
   <section>
@@ -454,14 +510,16 @@ bas();
 var foo = {
     bar: 123,
     bas: function () {
-        print('inside this.bar is: ' + this.bar);
+        console.log('inside this.bar is: ' + this.bar);
     }
 }
 
 var bas = foo.bas.bind(foo);
 bas();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/kkjj87cj/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: 123"
+  </p>
   </section>
 
 </section>
@@ -480,12 +538,14 @@ var foo = {
 };
 
 function bas() {
-    print('inside this.bar is: ' + this.bar);
+    console.log('inside this.bar is: ' + this.bar);
 }
 
 bas.bind(foo)();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/293Ls5ga/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: 123"
+  </p>
   <aside class="notes">We use bind because we don't want to mutate the object or the function</aside>
   </section>
 
@@ -497,12 +557,14 @@ var foo = {
 };
 
 function bas() {
-    print('inside this.bar is: ' + this.bar);
+    console.log('inside this.bar is: ' + this.bar);
 }
 
 bas.call(foo);
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/6jd9recc/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "inside this.bar is: 123"
+  </p>
   </section>
 
   <section>
@@ -513,12 +575,14 @@ var foo = {
 };
 
 function bas(a, b) {
-    print({bar:this.bar, a:a, b:b});
+    console.log({bar:this.bar, a:a, b:b});
 }
 
 bas.call(foo, 1, 2);
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/4xdwa2um/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> {"bar":123,"a":1,"b":2}
+  </p>
   <aside class="notes">Call is needed to create a prototype chain and we will see it next</aside>
   </section>
 
@@ -541,25 +605,11 @@ var adder = {
 }
 
 // Want to intercept any call to add e.g.
-print(adder.add(3));
+console.log(adder.add(3));
 </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/wLnkzmxs/embedded/result,js"></iframe></p>
-  </section>
-
-  <section>
-    <h2>How to intercept?</h2>
-  <pre><code data-trim contenteditable>
-var adder = {
-    increment: 1,
-    add: function (value) {
-        return this.increment + value;
-    }
-}
-
-// Want to intercept any call to add e.g.
-print(adder.add(3));
-</code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/wLnkzmxs/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> 4
+</p>
   </section>
 
   <section>
@@ -574,27 +624,32 @@ var adder = {
 
 var oldAdd = adder.add.bind(adder);
 adder.add = function(value){
-    print('someone is calling with value: ' + value);
+    console.log('someone is calling with value: ' + value);
     return oldAdd(value);
 }
 
 // Intercepted!
 adder.add(3);
 </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/2dL5q8yj/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "someone is calling with value: 3"
+</p>
   </section>
 
   <section>
     <h2>arguments</h2>
   <pre><code data-trim contenteditable>
 function foo(a,b,c){
-  print(arguments);
+  console.log(arguments);
 }
 
 foo('say', 'something');
 foo('talk', 'to', 'me');
 </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/rr4m2m6e/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> {"0":"say","1":"something"}
+> {"0":"talk","1":"to","2":"me"}
+</p>
   <aside class="notes">Array like object. Independent of any explicit arguments that you pass in.</aside>
   </section>
 
@@ -602,13 +657,16 @@ foo('talk', 'to', 'me');
     <h2>apply</h2>
   <pre><code data-trim contenteditable>
 function foo(a,b,c){
-    print(this);
-    print({a:a,b:b,c:c});
+    console.log(this);
+    console.log({a:a,b:b,c:c});
 }
 
 foo.apply({bar:'123'}, ['talk', 'to', 'me']);
 </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/38nwz38s/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> {"bar":"123"}
+> {"a":"talk","b":"to","c":"me"}
+</p>
   <aside class="notes">Similar to call except second argument is an array that gets destructured into parameters. First argument is "this" same as call</aside>
   </section>
 
@@ -624,14 +682,16 @@ var adder = {
 
 var oldAdd = adder.add;
 adder.add = function(value){
-    print('someone is calling with value: ' + value);
+    console.log('someone is calling with value: ' + value);
     return oldAdd.apply(adder,arguments);
 }
 
 // Intercepted!
 adder.add(3);
     </code></pre>
-    <p class="fragment"><iframe src="http://jsfiddle.net/basarat/on6tb3ez/embedded/result,js"></iframe></p>
+    <p class="fragment bas-code" data-trim contenteditable>
+> "someone is calling with value: 3"
+    </p>
     <aside class="notes">Just apply the arguments on the old function, and guaranteed to not break any code</aside>
   </section>
 </section>
@@ -646,7 +706,7 @@ adder.add(3);
     <h2>Chain 101</h2>
   <pre><code data-trim contenteditable>
 function Animal() { }
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() { }
 Bird.prototype.__proto__ = Animal.prototype;
@@ -657,18 +717,21 @@ animal.walk();
 var bird = new Bird();
 bird.walk();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/cxeb94s7/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+> "walk"
+  </p>
   </section>
 
   <section>
     <h2>Add child functions</h2>
   <pre><code data-trim contenteditable>
 function Animal() { }
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() { }
 Bird.prototype.__proto__ = Animal.prototype;
-Bird.prototype.fly = function () { print('fly') };
+Bird.prototype.fly = function () { console.log('fly') };
 
 var animal = new Animal();
 animal.walk();
@@ -677,7 +740,11 @@ var bird = new Bird();
 bird.walk();
 bird.fly();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/xn1mv4ym/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+> "walk"
+> "fly"
+  </p>
   </section>
 
   <section>
@@ -686,12 +753,12 @@ bird.fly();
 function Animal(name) {
      this.name = name;
 }
-Animal.prototype.walk = function () { print(this.name + ' is walking') };
+Animal.prototype.walk = function () { console.log(this.name + ' is walking') };
 
 function Bird(name) {
 }
 Bird.prototype.__proto__ = Animal.prototype;
-Bird.prototype.fly = function () { print(this.name + ' is flying') };
+Bird.prototype.fly = function () { console.log(this.name + ' is flying') };
 
 var animal = new Animal('elephant');
 animal.walk();
@@ -700,7 +767,11 @@ var bird = new Bird('crow');
 bird.walk();
 bird.fly();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/75eoyc3r/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "elephant is walking"
+> "undefined is walking"
+> "undefined is flying"
+</p>
   <aside class="notes">Does anybody see the error in this?</aside>
   </section>
 
@@ -710,13 +781,13 @@ bird.fly();
 function Animal(name) {
     this.name = name;
 }
-Animal.prototype.walk = function () { print(this.name + ' is walking') };
+Animal.prototype.walk = function () { console.log(this.name + ' is walking') };
 
 function Bird(name) {
     Animal.call(this, name);
 }
 Bird.prototype.__proto__ = Animal.prototype;
-Bird.prototype.fly = function () { print(this.name + ' is flying') };
+Bird.prototype.fly = function () { console.log(this.name + ' is flying') };
 
 var animal = new Animal('elephant');
 animal.walk();
@@ -725,7 +796,11 @@ var bird = new Bird('crow');
 bird.walk();
 bird.fly();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "elephant is walking"
+> "crow is walking"
+> "crow is flying"
+</p>
   </section>
 
   <section>
@@ -734,13 +809,13 @@ bird.fly();
 function Animal(name) {
     this.name = name;
 }
-Animal.prototype.walk = function () { print(this.name + ' is walking') };
+Animal.prototype.walk = function () { console.log(this.name + ' is walking') };
 
 function Bird() {
     Animal.apply(this, arguments);
 }
 Bird.prototype.__proto__ = Animal.prototype;
-Bird.prototype.fly = function () { print(this.name + ' is flying') };
+Bird.prototype.fly = function () { console.log(this.name + ' is flying') };
 
 var animal = new Animal('elephant');
 animal.walk();
@@ -749,7 +824,11 @@ var bird = new Bird('crow');
 bird.walk();
 bird.fly();
   </code></pre>
-  <p class="fragment"><iframe src="http://jsfiddle.net/basarat/umm0z6yy/embedded/result,js"></iframe></p>
+  <p class="fragment bas-code" data-trim contenteditable>
+> "elephant is walking"
+> "crow is walking"
+> "crow is flying"
+  </p>
   <aside class="notes">When you do not care about the base class constructor arguments</aside>
   </section>
 
@@ -795,7 +874,7 @@ bird.fly();
         <h2>Is or not?</h2>
         <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 Bird.prototype.__proto__ = Animal.prototype;
@@ -803,10 +882,13 @@ Bird.prototype.__proto__ = Animal.prototype;
 var animal = new Animal();
 var bird = new Bird();
 
-print(animal.constructor == Animal);
-print(bird.constructor == Bird);
+console.log(animal.constructor == Animal);
+console.log(bird.constructor == Bird);
         </code></pre>
-        <p><iframe src="http://jsfiddle.net/basarat/zbdcmjmg/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> true
+> true
+</p>
         <aside class="notes">Since proto points to prototype and prototype and member constructor</aside>
     </section>
 
@@ -822,15 +904,19 @@ Bird.prototype.__proto__ = Animal.prototype;
 var animal = new Animal();
 
 // how deep
-print(animal.__proto__.__proto__.__proto__);
+console.log(animal.__proto__.__proto__.__proto__);
 
 // tests
-print(animal.__proto__ == Animal.prototype
+console.log(animal.__proto__ == Animal.prototype
     || animal.__proto__.__proto__ == Animal.prototype);
-print(animal.__proto__ == Bird.prototype
+console.log(animal.__proto__ == Bird.prototype
     || animal.__proto__.__proto__ == Bird.prototype);
         </code></pre>
-        <p><iframe src="http://jsfiddle.net/basarat/mjdatkjy/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> null
+> true
+> false
+</p>
     </section>
 
     <section>
@@ -845,13 +931,18 @@ Bird.prototype.__proto__ = Animal.prototype;
 var animal = new Animal();
 var bird = new Bird();
 
-print(animal instanceof Animal);
-print(animal instanceof Bird);
+console.log(animal instanceof Animal);
+console.log(animal instanceof Bird);
 
-print(bird instanceof Bird);
-print(bird instanceof Bird);
+console.log(bird instanceof Bird);
+console.log(bird instanceof Bird);
         </code></pre>
-        <p><iframe src="http://jsfiddle.net/basarat/g1ve8ev6/embedded/result,js"></iframe></p>
+        <p class="fragment bas-code" data-trim contenteditable>
+> true
+> false
+> true
+> true
+        </p>
     </section>
 
 </section>
@@ -870,13 +961,19 @@ var str = '';
 var bool = true;
 var num = 123;
 
-print(func.__proto__ == Function.prototype);
-print(arr.__proto__ == Array.prototype);
-print(str.__proto__ == String.prototype);
-print(bool.__proto__ == Boolean.prototype);
-print(num.__proto__ == Number.prototype);
+console.log(func.__proto__ == Function.prototype);
+console.log(arr.__proto__ == Array.prototype);
+console.log(str.__proto__ == String.prototype);
+console.log(bool.__proto__ == Boolean.prototype);
+console.log(num.__proto__ == Number.prototype);
         </code></pre>
-        <p><iframe src="http://jsfiddle.net/basarat/su717mm1/embedded/result,js"></iframe></p>
+        <p class="fragment bas-code" data-trim contenteditable>
+> true
+> true
+> true
+> true
+> true
+        </p>
     </section>
 
     <section>
@@ -884,12 +981,17 @@ print(num.__proto__ == Number.prototype);
         <pre><code data-trim contenteditable>
 var arr = [];
 
-print(arr.__proto__ == Array.prototype);
-print(arr.__proto__.__proto__ == Object.prototype);
-print(arr instanceof Array);
-print(arr instanceof Object);
+console.log(arr.__proto__ == Array.prototype);
+console.log(arr.__proto__.__proto__ == Object.prototype);
+console.log(arr instanceof Array);
+console.log(arr instanceof Object);
         </code></pre>
-        <p><iframe src="http://jsfiddle.net/basarat/4328e6x7/embedded/result,js"></iframe></p>
+        <p class="fragment bas-code" data-trim contenteditable>
+> true
+> true
+> true
+> true
+        </p>
     </section>
 </section>
 
@@ -906,7 +1008,7 @@ print(arr instanceof Object);
         <h2>Basic Example</h2>
 <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 Bird.prototype.__proto__ = Animal.prototype;
@@ -914,7 +1016,9 @@ Bird.prototype.__proto__ = Animal.prototype;
 var bird = new Bird();
 bird.walk();
 </code></pre>
-<p><iframe src="http://jsfiddle.net/basarat/yfgqxkjt/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+</p>
 <aside class="notes">Anything you already know that can take a prototype and move it to __proto__?</aside>
     </section>
 
@@ -922,7 +1026,7 @@ bird.walk();
         <h2>new</h2>
 <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 function tmp(){}; tmp.prototype = Animal.prototype;
@@ -931,7 +1035,9 @@ Bird.prototype = new tmp();
 var bird = new Bird();
 bird.walk();
 </code></pre>
-<p><iframe src="http://jsfiddle.net/basarat/rd58hkud/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+</p>
 <aside class="notes">Deletes our reference to constructor</aside>
     </section>
 
@@ -940,7 +1046,7 @@ bird.walk();
         <h3>constructor restored</h3>
     <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 function tmp(){}; tmp.prototype = Animal.prototype;
@@ -950,13 +1056,16 @@ Bird.prototype.constructor = Bird;
 var bird = new Bird();
 bird.walk();
     </code></pre>
+<p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+</p>
     </section>
 
     <section>
         <h2>Object.create</h2>
     <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 Bird.prototype = Object.create(Animal.prototype);
@@ -964,7 +1073,9 @@ Bird.prototype = Object.create(Animal.prototype);
 var bird = new Bird();
 bird.walk();
     </code></pre>
-    <p><iframe src="http://jsfiddle.net/basarat/3osb4vhk/embedded/result,js"></iframe></p>
+<p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+</p>
     </section>
 
     <section>
@@ -972,7 +1083,7 @@ bird.walk();
         <h3>constructor restored</h3>
     <pre><code data-trim contenteditable>
 function Animal() {}
-Animal.prototype.walk = function () { print('walk') };
+Animal.prototype.walk = function () { console.log('walk') };
 
 function Bird() {}
 Bird.prototype = Object.create(Animal.prototype, {
@@ -987,7 +1098,9 @@ Bird.prototype = Object.create(Animal.prototype, {
 var bird = new Bird();
 bird.walk();
     </code></pre>
-    <p><iframe src="http://jsfiddle.net/basarat/7s6pek3k/embedded/result,js"></iframe></p>
+    <p class="fragment bas-code" data-trim contenteditable>
+> "walk"
+    </p>
     </section>
 
     <section>
