@@ -64,6 +64,35 @@
             </section>
         </section>
 
+          <section>
+              <section>
+                  <h2>Preview</h2>
+                  <pre><code data-trim contenteditable>
+function Animal(name) {
+    this.name = name;
+}
+Animal.prototype.walk = function () { console.log(this.name + ' is walking') };
+function Bird() {
+    Animal.apply(this, arguments);
+}
+Bird.prototype.__proto__ = Animal.prototype;
+Bird.prototype.fly = function () { console.log(this.name + ' is flying') };
+var animal = new Animal('elephant');
+animal.walk();
+var bird = new Bird('crow');
+bird.walk();
+bird.fly();
+  </code></pre>
+                  <p class="fragment bas-code" data-trim contenteditable>
+> "elephant is walking"
+> "crow is walking"
+> "crow is flying"
+                  </p>
+                  <aside class="notes">When you do not care about the base class constructor arguments</aside>
+              </section>
+
+          </section>
+
         <!--
 
 
