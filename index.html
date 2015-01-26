@@ -648,10 +648,10 @@ var adder = {
     }
 }
 
-var oldAdd = adder.add.bind(adder);
+var oldAdd = adder.add;
 adder.add = function(value){
     console.log('someone is calling with value: ' + value);
-    return oldAdd(value);
+    return oldAdd.call(adder,value);
 }
 
 // Intercepted!
